@@ -1,0 +1,100 @@
+{
+  "name": "MambaBasedDiffusionModel",
+  "phase": "train",
+  "gpu_ids": [0],
+  "path": {
+      "stage": "train",
+      "log": "logs",
+      "tb_logger": "tb_logger",
+      "results": "results",
+      "checkpoint": "checkpoint",
+      "resume_state": "/root/autodl-tmp/MBDiffusion/unet12/I500000_E430"
+  },
+  "datasets": {
+        "train": {
+            "name": "trainAndReferenceImgs",
+            "trainroot": ["/root/autodl-tmp/WaterCDMIMG/train/input/"],
+            "referenceroot": ["/root/autodl-tmp/WaterCDMIMG/train/target/"],
+            "datatype": "img",
+            "resolution": 256,
+            "batch_size": 4,
+            "num_workers": 8,
+            "use_shuffle": true,
+            "data_len": -1
+        },
+        "val": {
+            "name": "testImgs",
+            "trainroot":  ["/root/autodl-tmp/IMG/val/original/UIEB/"],
+            "referenceroot":["/root/autodl-tmp/IMG/val/reference/UIEB/"],
+            "datatype": "img",
+            "batch_size": 1,
+            "num_workers": 1,
+            "resolution": 256,
+            "data_len": -1
+        }
+  },
+  "model": {
+        "which_model_G": "WaveletBased_Unet",
+        "finetune_norm": false,
+        "unet": {
+            "channel": 3,
+            "dim": 48,
+            "layerout": [1,2,4,8],
+            "window_size":[8,16,16],
+            "Attnout":[2,2,2],
+            "temb_dim": 48,
+            "zemb_dim": 48,
+            "dropout": 0.1,
+            "skip_rescale": true,
+            "num_recblock": 2,
+            "ratic": 2,
+            "use_bias": false,
+            "factor": 2.88
+        },
+        "beta_schedule": {
+            "train": {
+                "schedule": "linear",
+                "n_timestep": 2000,
+                "linear_start": 1e-6,
+                "linear_end": 1e-2,
+                "bet": 1e-4
+            },
+            "val": {
+                "schedule": "linear",
+                "n_timestep": 2000,
+                "linear_start": 1e-6,
+                "linear_end": 1e-2,
+                "bet": 1e-4
+            }
+        },
+        "diffusion": {
+            "image_size": 256,
+            "timesteps": 1000,
+            "delta_end": 1.8e-3,
+            "sampling_timesteps": 10,
+            "channels": 3,
+            "condition": true,
+            "loss_type": "l1",
+            "ddim_sampling_eta": 0.0,
+            "sum_scale": 0.01
+        }
+  },
+  "train": {
+        "n_iter": 500000,
+        "val_freq": 10000,
+        "save_checkpoint_freq": 10000,
+        "print_freq": 100,
+        "ema_decay": 0.9999,
+        "ema_update_after_step": 150000,
+        "ema_update_every": 10,
+        "optimizer": {
+            "type": "AdamW",
+            "lr": 1e-4,
+            "eta_min": 5e-7,
+            "betas": [0.9, 0.99]
+        }
+  },
+  "wandb": {
+      "project": "FDRP-Net"
+  }
+}
