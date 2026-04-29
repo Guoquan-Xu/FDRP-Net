@@ -17,7 +17,7 @@ To train FDRP-Net, please follow these steps:
 ## Testing
 To test FDRP-Net, follow these steps:
 1. Download test datasets: Challenge60, U45, UIQS, UFO, SUIM, EUVP-Scenes.
-2. Download the pre-trained weights from [Weights](https://drive.google.com/drive/folders/1dKiMT7aE9Gfvg3oqfzd2xOxdKs56jTMh?usp=drive_link).
+2. Download the pre-trained weights from [Weights](https://drive.google.com/drive/folders/1dKiMT7aE9Gfvg3oqfzd2xOxdKs56jTMh?usp=drive_link). Place `URanker_ckpt.pth` under the `./Norm/URanker` directory. Then, configure the path to the pre-trained weights file in `ModelWithColor.json`.
 3. Configure the test data path in ModelWithColor.json. Optionally, set the result log file name in test.py.
 4. Run the testing script:
    ```python
