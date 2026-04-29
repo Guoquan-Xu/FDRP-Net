@@ -1,0 +1,7 @@
+tqdm
+tensorboard-data-server
+tensorboardX
+sympy
+opencv-contrib-python
+PyYAML
+lmdb
