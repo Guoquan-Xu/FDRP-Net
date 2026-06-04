@@ -3,7 +3,7 @@
 ## Requirements
 - Python 3.11 (recommended)
 - PyTorch 2.4.0+cu118 (recommended)
-- Additional packages listed in `requirements.txt`
+- Additional packages listed in `requirements.txt` or `environment.yml`
 
 ## Training
 To train FDRP-Net, please follow these steps:
